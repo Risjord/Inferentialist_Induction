@@ -1,0 +1,228 @@
+\documentclass{article}                     % onecolumn (standard format)
+\usepackage[top=1in,bottom=1in,left=1in,right=1in]{geometry}
+\usepackage{setspace}
+
+%\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+%\documentclass[twocolumn]{svjour3}          % twocolumn
+%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathptmx}
+\usepackage{stmaryrd}
+\usepackage{enumitem}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{bussproofs}
+\usepackage{pgf}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{ushort}
+\usepackage{soul}
+\usepackage[autostyle]{csquotes}
+\usepackage{tikz}
+%\usepackage[doi=false,isbn=false,url=false,style=chicago-authordate,natbib=true]{biblatex}
+
+
+\DeclareMathSymbol{\Gamma}{\mathalpha}{operators}{0}
+\DeclareMathSymbol{\Delta}{\mathalpha}{operators}{1}
+\DeclareMathSymbol{\Theta}{\mathalpha}{operators}{2}
+\DeclareMathSymbol{\Lambda}{\mathalpha}{operators}{3}
+\DeclareMathSymbol{\Xi}{\mathalpha}{operators}{4}
+\DeclareMathSymbol{\Pi}{\mathalpha}{operators}{5}
+\DeclareMathSymbol{\Sigma}{\mathalpha}{operators}{6}
+\DeclareMathSymbol{\Upsilon}{\mathalpha}{operators}{7}
+\DeclareMathSymbol{\Phi}{\mathalpha}{operators}{8}
+\DeclareMathSymbol{\Psi}{\mathalpha}{operators}{9}
+\DeclareMathSymbol{\Omega}{\mathalpha}{operators}{10}
+
+
+\DeclareFontFamily{U} {MnSymbolA}{}
+
+\DeclareFontShape{U}{MnSymbolA}{m}{n}{
+  <-6> MnSymbolA5
+  <6-7> MnSymbolA6
+  <7-8> MnSymbolA7
+  <8-9> MnSymbolA8
+  <9-10> MnSymbolA9
+  <10-12> MnSymbolA10
+  <12-> MnSymbolA12}{}
+\DeclareFontShape{U}{MnSymbolA}{b}{n}{
+  <-6> MnSymbolA-Bold5
+  <6-7> MnSymbolA-Bold6
+  <7-8> MnSymbolA-Bold7
+  <8-9> MnSymbolA-Bold8
+  <9-10> MnSymbolA-Bold9
+  <10-12> MnSymbolA-Bold10
+  <12-> MnSymbolA-Bold12}{}
+
+\DeclareSymbolFont{MnSyA}{U}{MnSymbolA}{m}{n}
+\DeclareMathSymbol{\twoheaduparrow}{\mathop}{MnSyA}{25}
+\DeclareMathSymbol{\twoheadrightarrow}{\mathop}{MnSyA}{24}
+
+\makeatletter
+
+% % % % % % % % % % % % % % % % Footnote Command % % % % % % % % % % % % %
+\usepackage{refcount}% http://ctan.org/pkg/refcount
+\newcounter{fncntr}
+\newcommand{\fnmark}[1]{\refstepcounter{fncntr}\label{#1}\footnotemark[\getrefnumber{#1}]}
+\newcommand{\fntext}[2]{\footnotetext[\getrefnumber{#1}]{#2}}
+
+% % % % % % % % % % % % % % % Internal Commands NMC% % % % % % % % % % % % %
+\newcommand{\raisemath}[1]{\mathpalette{\raisem@th{#1}}}
+\newcommand{\raisem@th}[3]{\raisebox{#1}{$#2#3$}}
+
+\newcommand{\uuparrow}{% 
+	\raisebox{.165ex}{\clipbox{0pt .6pt 0pt 0pt}{$\uparrow$}}
+}
+\newcommand{\tuuparrow}{% 
+	\raisebox{.165ex}{\clipbox{0pt 1pt 0pt 0pt}{$\scriptscriptstyle\uparrow$}}
+}
+\newcommand{\muparrow}{% 
+	\raisebox{.05ex}{\clipbox{0pt .65pt 0pt 0pt}{$\scriptstyle\uparrow$}}
+}
+\newcommand{\Uuparrow}{% 
+	\raisebox{.2ex}{\clipbox{0pt .15pt 0pt 0pt}{$\Uparrow$}}
+}
+\newcommand{\thuarrow}{% 
+	\raisebox{.05ex}{\clipbox{0pt .8pt 0pt 0pt}{$\twoheaduparrow$}}
+}
+
+% % % % % COMMANDS FOR NON-MONOTONIC CONSEQUENCES % % % % % % % % %
+\newcommand{\nms}{%
+	\mathbin{\mathpalette\@nms\expandafter}
+}
+\newcommand{\@nms}{\mid\joinrel\mkern-.5mu\sim}
+
+
+\newcommand{\nmc}{%
+	\mathbin{\mathpalette\nm@\expandafter}
+}
+\newcommand{\nm@}{\mid\joinrel\mkern-.5mu\sim\mkern-3mu}
+
+\newcommand{\qmc}[1]{\mathrel{
+		\mathchoice
+		{\normalsize\hspace{.4mm}\nms^{\mkern-18mu\scriptsize\uuparrow#1}\hspace{-.7mm}}
+		{\normalsize\hspace{.4mm}\nms^{\mkern-18mu\scriptsize\uuparrow#1}\hspace{-.7mm}}
+		{\footnotesize\hspace{.4mm}\nms^{\mkern-13mu\tiny\uuparrow#1}}
+		{\scriptsize\nms^{\mkern-10mu\tiny\tuuparrow#1}}
+	}
+}
+
+\newcommand{\mqmc}{\mathrel{
+		\mathchoice
+		{\hspace{.4mm}\nms^{\mkern-18mu\scriptsize\uuparrow}\hspace{.6mm}}
+		{\hspace{.4mm}\nms^{\mkern-18mu\scriptsize\uuparrow}\hspace{.6mm}}
+		{\footnotesize\hspace{.4mm}\nms^{\mkern-11mu\tiny\uuparrow}\hspace{.6mm}}
+		{\scriptsize\nms^{\mkern-10mu\tiny\tuuparrow}}
+	}
+}
+
+\newcommand{\mrc}[1]{\mathbin{
+		\mathchoice
+		{\normalsize\hspace{.5mm}\nms^{\mkern-19mu\scriptsize\Uuparrow#1}\hspace{-.5mm}}
+		{\normalsize\hspace{.5mm}\nms^{\mkern-19mu\scriptsize\Uuparrow#1}\hspace{-.5mm}}
+		{\footnotesize\hspace{.5mm}\nms^{\mkern-13.5mu\fontsize{5.5}{0}\Uuparrow#1}}
+		{\scriptsize\nms^{\mkern-10mu\tiny\Uuparrow#1}}
+	}
+}
+
+\newcommand{\smc}{\mathbin{
+		\mathchoice
+		{\hspace{.4mm}\nms^{\mkern-17mu\scriptsize\thuarrow}\hspace{.6mm}}
+		{\hspace{.4mm}\nms^{\mkern-17mu\scriptsize\thuarrow}\hspace{.6mm}}
+		{\footnotesize\hspace{.4mm}\nms^{\mkern-11mu\tiny\thuarrow}\hspace{.6mm}}
+		{\scriptsize\nms^{\mkern-10mu\tiny\thuarrow}}
+	}
+}
+\newcommand{\nnmc}{\not\nmc}
+\newcommand{\nsmc}{\not\mkern-3mu\smc}
+\newcommand{\nmrc}{\not\mkern-3mu\mrc}
+\newcommand{\nmqmc}{\not\mkern1mu\mqmc}
+\newcommand{\nqmc}{\not\mkern1mu\qmc}
+
+\newcommand{\nme}{%
+	\mathbin{\mathpalette\@nme\expandafter}
+}
+\newcommand{\@nme}{{\mid\joinrel\mkern-.5mu\sim\mkern-2mu}_{e}\mkern3mu}
+
+
+%\newcommand{\nme}{\nms\mkern-7mu_{e}\mkern2mu}
+\newcommand{\qme}{{\qmc\mkern-2mu}_{e}\mkern3mu}
+\newcommand{\mqme}{{\mqme\mkern-2mu}_{e}\mkern3mu}
+\newcommand{\sme}{{\smc\mkern-2mu}_{e}\mkern3mu}
+
+% % % % % % % % % % %Commands for Materia Incoherence% % % % % % % % % % % %
+
+\newcommand{\bigperpp}{%
+	\mathop{\mathpalette\bigp@rpp\relax}%
+	\displaylimits
+}
+\newcommand{\bigp@rpp}[2]{%
+	\vcenter{
+		\m@th\hbox{\scalebox{\ifx#1\displaystyle1.3\else1.3\fi}{$#1\perp$}}
+	}%
+}
+\newcommand{\bigperp}{\raisemath{.5pt}{\bigperpp}}
+
+%% % % % % % Degree Command % % % % % % % % % % % % % % % % % % % %
+\newcommand{\degree}{\ensuremath{^\circ}}
+
+%%%%%%%%%%%%%Author Comments%%%%%%%%%%%%%%%%%
+ \newcommand{\kk}[1]{\textcolor{red}{$^{\textrm{KK}}${#1}}}
+ \newcommand{\jm}[1]{\textcolor{blue}{$^{\textrm{JM}}${#1}}}
+ \newcommand{\mr}[1]{\textcolor{green}{$^{\textrm{MR}}${#1}}}
+
+
+\makeatother
+
+
+%\usepackage[hang,flushmargin]{footmisc} 
+%\usepackage[hidelinks]{hyperref}
+
+
+\title{Induction and Inferentialism}
+\author{							
+	Dr. Kareem Khalifa  \and
+	Dr. Jared Millson   \and
+	Dr. Mark Risjord
+	}
+\date{}	
+	
+\begin{document}
+\maketitle
+\large
+\doublespacing   %Please! this makes the output much easier to proofread with aging eyes...
+
+\section{Introduction}
+
+Jarda Peregrin's work develops the thought that we should be \textit{inferentialist} about meaning and \textit{expressivist} about logic.  Inferentialism about the meaning of a term is constituted by the inferences it licenses.  Expressivism about logic holds that the normative force of logic lies in its capacity to make explicit the norms of material inference. On an inferential expressivist view, then, Genzen proof theory becomes the paradigm for determining the meaning of logical operators through the rules governing their use.  As Koren's essay in this volume argues, there is a tension between inferentialism about meaning and expressivism about logic.  Peregrin wants to hold that logical operators add no new meanings.  This guarantees the conservatism that at Genzen-type proof theory apparently needs to keep from suffering objections like Prior's ``tonk'' connective (REF Prior).   Once the logical operators are in place, they create a separate ``layer'' of inferences among propositions.  The tension arises because Peregrin holds that propositional content exists only in virtue of the introduction of logical operators, since they facilitate a proposition's inferential role.  This merges the two layers into one, and it becomes difficult to see how logical operators could be expressive.  John McDowell has pressed an analogous worry about Brandom's project.  Indeed, McDowell has pushed the point all the way to the observational content of the language.  Unless conceptual content is logically articulated all the way to the level of observation, inferentialism leaves  thought and language too disconnected from experiential control, ``freely spinning in the void.''  
+ 
+ The apparent path forward for the combination of inferentialism and expressivism championed by Peregrin and Brandom is some kind of bootstrapping strategy.  With respect to the articulation of more observationally oriented content, scientific inquiry plays a crucial role. In scientific domains we hold ourselves systematically responsible for developing the consequences of our observational claims.   Sellars pointed out that the introduction of new theoretical terms forced reconceptiualization of the observational vocabulary  (REF ``Language of Theories'').  This is exactly the sort of bootsrtapping that the inferentialist project requires.  However, current work in inferentialism has focused entirely on the domain traditionally associated with ``deductive'' reasoning, where commitment is preserved. Entitlement preserving inferences are the traditional domain of ``inductive'' reasoning.  What would an inferentialist expressivist approach to induction look like? 
+
+Not all forms of inductive reasoning hold promise for helping ground an inferentialist account of meaning.  Simple enumerative induction, for example, moves from ``Some $F$ are $G$'' to ``All $F$ are $G$.''  While useful, such inferences do not introduce new theoretical terms.  Inference to the best explanation is a distinctive form of ampliative reasoning insofar as it introduces a new entitlement: we become entitled to assert the existence of things like black holes, photons, and genes because they figure in our best explanations.  In this essay, we will explore an inferentialist expressivist account of inference to the best explanation.
+
+%This needs a reference to McDowell and some intellectual sharpening.  The paralell between Koren-Peregrin and McDowell-Brandom was suggested by Brandom at the Prague conference.
+
+\section{An Expressivist Answer to Hume's Problem of Induction}
+
+Start with Hume's fork: any justification of induction will need to use either an inductive or deductive argument. A deductive defense of induction is too strong, turning inductions into deductions.  An inductive defense is circular.
+
+Recall Haak's ``Justification of Deduction'' essay: the same argument applies to deduction.  An inductive defense of deduction would be too weak, and a deductive justification would be circular.  Haak's argument shows that there is something defective about this kind of call to justify rules of inference.
+
+An expressivist has a response to Haak's challenge, and thereby to Hume.  To call for an argument justifying a rule of inference is to look for the normative force of inferential rules in the wrong place.  Forms of infernece do not get their logical force from an argument, so to ask for ``justification'' in the way one might justify a belief, is a category mistake.  Logical operators make explicit underlying material inferences.  Its normativity is exhausted by the underlying material norms.  The material norms are constituted by normative attitudes of holding others and treating oneself as committed and entitled.
+
+The expressivist answer is much in the spirit of Hume's own response to his argument.  Hume did not seek justification, but rather notoriously appealed to habit.  Many have thought this to be inadequate because it eliminates the logical force, what we now call ``normativity,'' of inductive arguments. To capture this normativity, we only have to recognize the Wittgensteinean insight that rule following is public, not something that one person could do all alone. Hume's habits are solitary, but replacing them with the public attitudes of taking oneself and others to be committed or entitled adds no metaphysical baggage.  Brandom, Peregrin, and Rouse have pioneered the trail that leads from Wittgensten's insight to the implicit normativity of material inference, made explicit by logic.
+
+To properly respond to Hume, then, it is sufficient too point to successful scientific inferential practices.  Scientific practice includes the recognition of entitlement-preserving inference.  (Give any example of scientific inference here.)  Some of these have been held up as ``methods,'' but an inferentialist need not recognize the priority of any given method, nor need we suppose that entilement preserving material inferences are especially systematic.  That is, we need not be committed to the claim that there is a unified logic of induction to  
+suppose that there is an expressivist account of inductive logic.
+
+
+
+\section{Toward an Expressivist Account of ``Best Explains''}
+
+
+
+\end{document}
